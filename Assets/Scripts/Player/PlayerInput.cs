@@ -7,6 +7,7 @@ public class PlayerInput : MonoBehaviour, IPlayerActions
 {
     public Action<float> OnMoveAction;
     public Action OnJumpAction;
+    public Action OnInventory;
 
     private PlayerActionsMap playerActionsMap;
 
@@ -40,5 +41,18 @@ public class PlayerInput : MonoBehaviour, IPlayerActions
         {
             OnJumpAction?.Invoke();
         }
+    }
+
+    public void OnOpenInventory(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            OnInventory?.Invoke();
+        }
+    }
+
+    public void OnWeaponDirection(InputAction.CallbackContext context)
+    {
+
     }
 }
