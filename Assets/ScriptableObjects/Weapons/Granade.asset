@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba061fc3a6d534c4b8c9c68eb5e8f086, type: 3}
+  m_Name: Granade
+  m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  WeaponTypes: 0
+  WeaponUI:
+    UIWeaponSprite: {fileID: 2200681144900854351, guid: b3c082ab27400f041b00b0fe94c375a3, type: 3}
+  Consamtion:
+    launchCost: 0
+  SpawnblObjects:
+    weaponObject: {fileID: 2381754860741917892, guid: d76e20ad32a44fa42a1f1d2dcf5f9f7d, type: 3}
+    projectileObject: {fileID: 2381754860741917892, guid: d76e20ad32a44fa42a1f1d2dcf5f9f7d, type: 3}
+  ProjectileStats:
+    launchForceMin: 1
+    launchForceMax: 5
+    lifetime: 4
+    explosionRadius: 0.5
+    explosionDamage: 20

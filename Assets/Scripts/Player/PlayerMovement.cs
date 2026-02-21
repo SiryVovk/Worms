@@ -6,12 +6,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private int jumpPrice = 10;
     [SerializeField] private int moveEnergyCost = 1;
-    [SerializeField] private int maxEnergy = 100;
 
     private Rigidbody2D rb;
     private PlayerInput playerInput;
+    private PlayerEnergy playerEnergy;
+
     private float movementDirection;
-    private int currentEnergy;
     private bool IsGrounded = true;
 
     private const string GROUND_TAG = "Ground";
@@ -20,11 +20,10 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
+        playerEnergy = GetComponent<PlayerEnergy>();
 
         playerInput.OnMoveAction += HandleMove;
         playerInput.OnJumpAction += HandleJump;
-
-        currentEnergy = maxEnergy;
     }
 
     private void OnDestroy()
@@ -40,9 +39,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleJump()
     {
-        if (IsGrounded && currentEnergy >= jumpPrice)
+        if (IsGrounded && playerEnergy.HasEnoughEnergy(jumpPrice))
         {
-            currentEnergy -= jumpPrice;
+            playerEnergy.UseEnergy(jumpPrice);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             IsGrounded = false;
         }
@@ -56,29 +55,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        if(Mathf.Abs(movementDirection) > 0.1f && currentEnergy >= moveEnergyCost)
+        if(Mathf.Abs(movementDirection) > 0.1f && playerEnergy.HasEnoughEnergy(moveEnergyCost))
         {
-            currentEnergy -= moveEnergyCost;
+            playerEnergy.UseEnergy(moveEnergyCost);
         }
         else
         {
             movementDirection = 0f;
         }
-    }
-
-    public int GetCurrentEnergy()
-    {
-        return currentEnergy;
-    }
-
-    public int GetMaxEnergy()
-    {
-        return maxEnergy;
-    }
-
-    public void RechargeEnergy(int amount)
-    {
-        currentEnergy = Mathf.Min(currentEnergy + amount, maxEnergy);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
